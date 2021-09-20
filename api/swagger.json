@@ -1,0 +1,142 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API de compras la cual permite listar, agregar, acuatlizar y eliminar productos",
+    "version" : "1.0.0",
+    "title" : "API Rest Shopping Cart"
+  },
+  "tags" : [ {
+    "name" : "products",
+    "description" : "Operaciones sobre productos"
+  } ],
+  "paths" : {
+    "/products" : {
+      "get" : {
+        "tags" : [ "products" ],
+        "summary" : "Obtener products",
+        "operationId" : "getProduct",
+        "description" : "Obtiene el listado completo de los productos almacenados en DB",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "getProducts",
+          "description" : "Muestra el listado de los productos",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "reporte de productos almacenados",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/product"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/products/id" : {
+      "get" : {
+        "tags" : [ "products" ],
+        "summary" : "Obtener por id",
+        "operationId" : "getProductByID",
+        "description" : "Obtiene el producto específico pasado por parámetro",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "getProducts",
+          "description" : "Devuelve el producto seleccionado",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Busqueda de resultados segun criterio",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/product"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Producto inexistente"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "product" ],
+        "summary" : "Agrega un producto",
+        "operationId" : "cretateProduct",
+        "description" : "Agrega productos",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Agrega productos",
+          "schema" : {
+            "$ref" : "#/definitions/product"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item agregado"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "product" ],
+        "summary" : "Agrega un producto",
+        "operationId" : "deleteProduct",
+        "description" : "Elimina productos",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Elimina productos",
+          "schema" : {
+            "$ref" : "#/definitions/product"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item elimiadi"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "product" : {
+      "type" : "object",
+      "required" : [ "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "nanoid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "ProductName"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/JohannCABJ/APIRestCart/1.0.0",
+  "schemes" : [ "https", "http" ]
+}
