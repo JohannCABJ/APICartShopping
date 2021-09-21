@@ -16,17 +16,6 @@ module.exports = function (injectedStore){
         return store.get(TABLA, id);
     }
 
-    function upsert(body) {
-        const products = {
-            name:body.name,
-        }
-        if (body.id){
-            product.id = body.id
-        }else{
-            product.id = nanoid()
-        }
-        return  store.upsert(TABLA,product)
-    }
     function remove(idu) {
         return store.remove(TABLA,idu);
     }
@@ -34,7 +23,6 @@ module.exports = function (injectedStore){
     return {
         list,
         get,
-        upsert,
         remove,
     }
 }

@@ -1,5 +1,4 @@
 const express = require ('express')
-
 const response = require ('../../../network/response')
 const Controller = require ('./index')
 
@@ -7,10 +6,7 @@ const router = express.Router()
 
 router.get('/', list)
 router.get('/:id', get);
-router.post('/', upsert);
-router.put('/', upsert);
-router.delete('/remove/:id', remove);
-
+router.delete('/:id', remove);
 
 function list (req,res){
     Controller.list()
@@ -32,15 +28,6 @@ function get (req,res){
     })    
 }
 
-function upsert (req,res){
-    Controller.get(req.body)
-     .then((producto)=>{
-        response.success(req,res,producto,202)  
-     })
-     .catch((err)=>{
-        response.error(req,res,err.message,500) 
-    })
-}
 function remove(req, res) {
     Controller.remove(req.params.id,)
         .then((producto) => {
@@ -48,5 +35,6 @@ function remove(req, res) {
         })
         .catch(next)
 }
+
 
 module.exports = router
